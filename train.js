@@ -17,7 +17,7 @@ function setup(){
     nn.normalizeData();
     const trainingOptions={
         batchSize: 24,
-        epochs: 32
+        epochs: 200
     }
     getTestDat();
     nn.train(trainingOptions,finishedTraining);
@@ -72,7 +72,7 @@ function finishedTraining(){
         console.log(result);
         document.getElementById("h1").innerHTML = "this song is " + result[0].label + " probabaly kinnda idk";
     })
-    //nn.save()
+    nn.save()
 }
 
 function createTrainingData(){

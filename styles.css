@@ -1,0 +1,15 @@
+body{
+    background-color: white;
+
+
+    opacity: 0; 
+    transition: opacity 4s; 
+    
+}
+
+
+#img{
+    border-radius: 4%; 
+    margin-top: 10px; 
+    margin-bottom: 10px;
+}

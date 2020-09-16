@@ -1,5 +1,9 @@
 let og = window.location.search
 let id = og.substr(og.indexOf('id=')+3);
+if(id === undefined || id === ''|| id === ' ')
+{
+    document.getElementById("h1").innerHTML = "please pass in a song id";
+}
 let testdat = []
 const options = {
     inputs: 7,
@@ -14,6 +18,7 @@ const options = {
     metadata: 'model/model_meta.json',
     weights: 'model/model.weights.bin'
   }
+
   nn.load(modelDetails, getTestDat)
 
   function modelLoaded(){
@@ -24,7 +29,7 @@ const options = {
     })
   }
 
-  async function getTestDat()
+async function getTestDat()
 {
     let token
     let urlencoded = new URLSearchParams();
@@ -60,11 +65,26 @@ const options = {
        
            
         console.log(id)
-            await fetch("https://api.spotify.com/v1/audio-features/" + id, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                    testdat = [result.danceability , result.energy ,  result.speechiness , result.acousticness , result.instrumentalness ,result.liveness,result.valence]
-            })
-            .catch(error => console.log('error', error));
+        await fetch("https://api.spotify.com/v1/audio-features/" + id, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+                testdat = [result.danceability , result.energy ,  result.speechiness , result.acousticness , result.instrumentalness ,result.liveness,result.valence]
+        })
+        .catch(error => console.log('error', error));
+
+        await fetch("https://api.spotify.com/v1/tracks/" + id, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result.album.images[0].url)
+            var img = document.getElementById('img'); 
+            img.src =  result.album.images[0].url
+            img.id = 'img'
+            img.className ="img-rounded"
+            var title = document.getElementById('title')
+            title.innerHTML = result.name
+        })
+        .catch(error => console.log('error', error));
+
         modelLoaded()
 }
+ 
