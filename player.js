@@ -1,3 +1,5 @@
+let og = window.location.search
+let channelID = og.substr(og.indexOf('id=')+3);
 getDat()
 async function getDat()
 {
@@ -33,14 +35,9 @@ async function getDat()
         },
         redirect: 'follow'
     };
-    let requestOptions2 = {
-        method: 'GET',
-        headers: {
-            "ChannelID": "Hi this is from html"
-        },
-    };
+
     let id = ""
-    await fetch("https://discord-snap-bot.herokuapp.com/song", requestOptions2)
+    await fetch("https://discord-snap-bot.herokuapp.com/song?channelID=" + channelID)
     .then(response => response.text())
     .then(result => {
         id = result
