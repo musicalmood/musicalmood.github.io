@@ -33,26 +33,32 @@ async function getDat()
         },
         redirect: 'follow'
     };
+    let requestOptions2 = {
+        method: 'GET',
+        headers: {
+            "ChannelID": "Hi this is from html"
+        },
+    };
     let id = ""
-    var oReq = new XMLHttpRequest();
-    await oReq.addEventListener("load", await function () {
-        console.log(this.responseText);
-        id = this.responseText
-        fetch("https://api.spotify.com/v1/tracks/" + id, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result.album.images[0].url)
-                var img = document.getElementById('img');
-                img.src =  result.album.images[0].url
-                img.id = 'img'
-                img.className ="img-rounded"
-                var title = document.getElementById('title')
-                title.innerHTML = result.name + ' - ' + result.album.name
-            })
-            .catch(error => console.log('error', error));
-    });
-    await oReq.open("GET", "https://discord-snap-bot.herokuapp.com/song");
-    await oReq.send();
+    await fetch("https://discord-snap-bot.herokuapp.com/song", requestOptions2)
+    .then(response => response.text())
+    .then(result => {
+        id = result
+    })
+    .catch(error => console.log('error', error));
+    await fetch("https://api.spotify.com/v1/tracks/" + id, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result.album.images[0].url)
+            var img = document.getElementById('img');
+            img.src =  result.album.images[0].url
+            img.id = 'img'
+            img.className ="img-rounded"
+            var title = document.getElementById('title')
+            title.innerHTML = result.name + ' - ' + result.album.name
+        })
+        .catch(error => console.log('error', error));
+
 }
 document.getElementById("playpause").addEventListener("click", myFunction);
 let pause = false
