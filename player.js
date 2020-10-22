@@ -70,3 +70,8 @@ function myFunction() {
     }
     pause = !pause
 }
+var slider = document.getElementById("myRange");
+
+slider.oninput = function() {
+    alert(this.value);
+}
