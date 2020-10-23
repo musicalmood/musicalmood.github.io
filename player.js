@@ -57,9 +57,8 @@ async function getDat()
         .catch(error => console.log('error', error));
 
 }
-document.getElementById("playpause").addEventListener("click", myFunction);
 let pause = false
-function myFunction() {
+document.getElementById("playpause").addEventListener("click", function (){
     if(pause === false) {
         fetch('https://discord-snap-bot.herokuapp.com/pause')
         document.getElementById("playpause").innerHTML = "I>";
@@ -69,9 +68,10 @@ function myFunction() {
         document.getElementById("playpause").innerHTML = "| |";
     }
     pause = !pause
-}
-var slider = document.getElementById("myRange");
+});
+
+let slider = document.getElementById("myRange");
 
 slider.oninput = function() {
-    alert(this.value);
+    fetch('https://discord-snap-bot.herokuapp.com/seek?time=' + this.value)
 }
