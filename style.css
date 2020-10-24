@@ -5,55 +5,24 @@
 }
 .inner1{
     flex: 1;
-    align-content: center;
-    align-items: center;
-    align-self: center;
-    alignment: center;
-    justify-content: center;
-    justify-items: center;
-    justify-self: center;
     text-align: center;
-    text-align-all: center;
 }
 
 .inner2{
-    flex-direction: row;
     flex: 1;
-    align-content: center;
-    align-items: center;
-    align-self: center;
-    alignment: center;
-    justify-content: center;
-    justify-items: center;
-    justify-self: center;
-    text-align: center;
-    text-align-all: center;
 }
 
 .inner3{
     flex: 1;
-    align-content: center;
-    align-items: center;
-    align-self: center;
-    alignment: center;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
-    justify-items: center;
-    justify-self: center;
-    text-align: center;
-    text-align-all: center;
+
 }
 
 .inner4{
     flex: 1;
-    align-content: center;
-    align-items: center;
-    align-self: center;
-    alignment: center;
-    justify-content: center;
-    justify-items: center;
-    justify-self: center;
     text-align: center;
-    text-align-all: center;
 }
 
 .button {

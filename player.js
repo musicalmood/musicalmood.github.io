@@ -1,5 +1,7 @@
 let og = window.location.search
 let channelID = og.substr(og.indexOf('id=')+3);
+let id = ""
+let slider = document.getElementById("myRange");
 getDat()
 async function getDat()
 {
@@ -36,11 +38,12 @@ async function getDat()
         redirect: 'follow'
     };
 
-    let id = ""
     await fetch("https://discord-snap-bot.herokuapp.com/song?channelID=" + channelID)
-    .then(response => response.text())
+    .then(response => response.json())
     .then(result => {
-        id = result
+        id = result.songId
+        slider.max = result.duration/1000
+        slider.value = (Date.now() - result.time)/1000
     })
     .catch(error => console.log('error', error));
     await fetch("https://api.spotify.com/v1/tracks/" + id, requestOptions)
@@ -73,8 +76,26 @@ document.getElementById("next").addEventListener("click", function (){
 
     fetch('https://discord-snap-bot.herokuapp.com/next')
 });
-let slider = document.getElementById("myRange");
 
 slider.oninput = function() {
     fetch('https://discord-snap-bot.herokuapp.com/seek?time=' + this.value)
 }
+setTimeout(async function () {
+    while(true)
+    {
+        await fetch("https://discord-snap-bot.herokuapp.com/song?channelID=" + channelID)
+            .then(response => response.json())
+            .then(result => {
+                if(result.songId !== id)
+                {
+                    getDat()
+                }else {
+                    slider.max = result.duration / 1000
+                    slider.value = Math.ceil((Date.now() - result.time) / 1000)
+                }
+            })
+            .catch(error => console.log('error', error));
+    }
+
+}, 0);
+
