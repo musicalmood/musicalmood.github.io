@@ -69,7 +69,10 @@ document.getElementById("playpause").addEventListener("click", function (){
     }
     pause = !pause
 });
+document.getElementById("next").addEventListener("click", function (){
 
+    fetch('https://discord-snap-bot.herokuapp.com/next')
+});
 let slider = document.getElementById("myRange");
 
 slider.oninput = function() {
